@@ -18,6 +18,7 @@ fs.readFile('kjv_strongs.csv', (err, data) => {
     console.error(err);  
     return;  
    }  
+   console.log('Parsed data:', data);  
    bibleData = data.map((row) => {  
     return {  
       Book: row['Book Name'],  
@@ -26,42 +27,12 @@ fs.readFile('kjv_strongs.csv', (err, data) => {
       Text: row.Text,  
     };  
    });  
+   console.log('Mapped data:', bibleData);  
   });  
 });  
   
 app.get('/search', (req, res) => {  
-  const searchTerm = req.query.searchTerm;  
-  const pageSize = parseInt(req.query.pageSize) || 10;  
-  const pageNumber = parseInt(req.query.pageNumber) || 1;  
-  const filterBook = req.query.filterBook;  
-  const filterChapter = req.query.filterChapter;  
-  
-  let results = bibleData.filter((row) => {  
-   return (  
-    row.Book.toLowerCase().includes(searchTerm.toLowerCase()) ||  
-    row.Text.toLowerCase().includes(searchTerm.toLowerCase())  
-   );  
-  });  
-  
-  if (filterBook) {  
-   results = results.filter((row) => row.Book === filterBook);  
-  }  
-  
-  if (filterChapter) {  
-   results = results.filter((row) => row.Chapter === parseInt(filterChapter));  
-  }  
-  
-  const totalPages = Math.ceil(results.length / pageSize);  
-  const startIndex = (pageNumber - 1) * pageSize;  
-  const endIndex = startIndex + pageSize;  
-  const paginatedResults = results.slice(startIndex, endIndex);  
-  
-  res.json({  
-   results: paginatedResults,  
-   totalPages,  
-   pageNumber,  
-   pageSize,  
-  });  
+  //...  
 });  
   
 app.listen(3000, () => {  
