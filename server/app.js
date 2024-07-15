@@ -17,7 +17,8 @@ fs.readFile('kjv_strongs.csv', (err, data) =&gt; {
    if (err) {  
     console.error(err);  
     return;  
-   }  
+   }
+   console.log('Parsed data:', data);
    bibleData = data;  
   });  
 });  
@@ -47,19 +48,18 @@ app.get('/search', (req, res) =&gt; {
   }  
   
   const totalPages = Math.ceil(results.length / pageSize);  
-  const startIndex = (pageNumber - 1) * pageSize;  
+  const startIndex = (pageNumber - 1) * pageSize;
   const endIndex = startIndex + pageSize;  
   const paginatedResults = results.slice(startIndex, endIndex);  
   
   res.json({  
-   results: paginatedResults,  
-   totalPages,  
-   pageNumber,  
-   pageSize,  
+   results: paginatedResults,  
+   totalPages,  
+   pageNumber,  
+   pageSize,  
   });  
 });  
   
 app.listen(3000, () =&gt; {  
   console.log('Server started on port 3000');  
-});  
-
+});
