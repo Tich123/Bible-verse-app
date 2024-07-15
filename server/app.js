@@ -1,7 +1,7 @@
  
 const express = require('express');  
 const app = express();  
-const csv = require('csv-parser');  
+const csv = require('csv-parse');  
 const fs = require('fs');  
   
 app.use(express.static('public'));  
