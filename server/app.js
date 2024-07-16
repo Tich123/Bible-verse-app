@@ -15,8 +15,8 @@ fs.readFile('asv.json.csv', (err, data) => {
   }
   console.log('File read successfully!');
   csv.parse(data, {
-    columns: true, // Assumes first row contains headers
-    trim: true,    // Trim whitespace from values
+    columns: true,
+    trim: true,
   }, (err, data) => {
     if (err) {
       console.error(err);
@@ -35,9 +35,19 @@ fs.readFile('asv.json.csv', (err, data) => {
   });
 });
 
+// Search endpoint to find Bible books
 app.get('/search', (req, res) => {
-  // Handle search functionality
-  res.send('Search endpoint');
+  const { book } = req.query;
+
+  if (!book) {
+    return res.status(400).send('Please provide a valid book name');
+  }
+
+  const results = bibleData.filter((verse) => {
+    return verse.Book.toLowerCase() === book.toLowerCase();
+  });
+
+  res.json(results);
 });
 
 app.listen(3001, () => {
