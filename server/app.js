@@ -39,17 +39,17 @@ fs.readFile('asv.json.csv', (err, data) => {
 app.get('/search', (req, res) => {
   const { book } = req.query;
 
-  console.log('Search query:', book); // Add this for debugging
+  console.log('Search query:', book); // Debugging: Check the value of book query parameter
 
   if (!book) {
     return res.status(400).send('Please provide a valid book name');
   }
 
   const results = bibleData.filter((verse) => {
-    return verse.Book.toLowerCase() === book.toLowerCase();
+    return verse.Book.trim().toLowerCase() === book.trim().toLowerCase();
   });
 
-  console.log('Search results:', results); // Add this for debugging
+  console.log('Search results:', results); // Debugging: Check the filtered results
 
   res.json(results);
 });
