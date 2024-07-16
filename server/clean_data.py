@@ -1,18 +1,17 @@
 import pandas as pd
 
 # Load the CSV file
-df = pd.read_csv('/Bible-verse-app/server/kjv_strongs.csv')
+df = pd.read_csv('kjv_strongs.csv')
 
-# Display rows with missing or NaN values
-missing_data = df[df.isnull().any(axis=1)]
-print("Rows with missing or NaN values:")
-print(missing_data)
+# Display summary of missing values
+print("Summary of missing values:")
+print(df.isnull().sum())
 
-# Drop rows with missing or NaN values
-df_cleaned = df.dropna()
+# Drop rows with any NaN values in specified columns
+df_cleaned = df.dropna(subset=['Book Name', 'Chapter', 'Verse', 'Text'])
 
 # Save the cleaned data to a new CSV file
-df_cleaned.to_csv('/Bible-verse-app/server/kjv_strongs.csv', index=False)
+df_cleaned.to_csv('cleaned_kjv_strongs.csv', index=False)
 
-print("Cleaned data saved to 'cleaned_kjv_strongs.csv’")
+print("Cleaned data saved to 'cleaned_kjv_strongs.csv'")
 

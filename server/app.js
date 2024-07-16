@@ -1,44 +1,46 @@
- 
-const express = require('express');  
-const app = express();  
-const csv = require('csv-parse');  
-const fs = require('fs');  
-  
-app.use(express.static('public'));  
-  
-let bibleData = [];  
+const express = require('express');
+const app = express();
+const csv = require('csv-parse');
+const fs = require('fs');
 
+app.use(express.static('public'));
+
+let bibleData = [];
 
 console.log('Reading file...');
-fs.readFile('kjv_strongs.csv', (err, data) => {
+fs.readFile('asv.json.csv', (err, data) => {
   if (err) {
-   console.error(err);
-   return;
+    console.error(err);
+    return;
   }
   console.log('File read successfully!');
-  csv.parse(data, (err, data) => {
-   if (err) {
-    console.error(err);
-    return;
-   }
-   console.log('Parsed data:', data);
-   bibleData = data.map((row) => {
-    return {
-      Book: row['Book Name'],
-      Chapter: parseInt(row.Chapter),
-      Verse: parseInt(row.Verse),
-      Text: row.Text,
-    };
-   });
-   console.log('Mapped data:', bibleData);
+  csv.parse(data, {
+    columns: true, // Assumes first row contains headers
+    trim: true,    // Trim whitespace from values
+  }, (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log('Parsed data:', data);
+    bibleData = data.map((row) => {
+      return {
+        Book: row.book_name,
+        Chapter: parseInt(row.chapter),
+        Verse: parseInt(row.verse),
+        Text: row.text,
+      };
+    });
+    console.log('Mapped data:', bibleData);
   });
 });
-  
-app.get('/search', (req, res) => {  
-  //...  
-});  
-  
-app.listen(3001, () => {  
-  console.log('Server started on port 3001');  
-});  
+
+app.get('/search', (req, res) => {
+  // Handle search functionality
+  res.send('Search endpoint');
+});
+
+app.listen(3001, () => {
+  console.log('Server started on port 3001');
+});
 
