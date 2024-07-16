@@ -1,37 +1,38 @@
- 
-  
-  
-  
-   
-   
-  <title>Bible App</title>  
-   
-  
-  
-  <header>  
-   <h1>Bible App</h1>  
-  </header>  
-  <main>  
-   <form>  
-    <input placeholder="Search for a book, chapter, or verse" id="search-input" type="search">  
-    <button id="search-button">Search</button>  
-    <select id="filter-book-select">  
-      <option value="">All Books</option>  
-      <option value="Genesis">Genesis</option>  
-      <option value="Exodus">Exodus</option>  
-       
-    </select>  
-    <select id="filter-chapter-select">  
-      <option value="">All Chapters</option>  
-      <option value="1">1</option>  
-      <option value="2">2</option>  
-       
-    </select>  
-   </form>  
-   <div id="results-container"></div>  
-   <div id="pagination-container"></div>  
-  </main>  
-   
-  
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Bible Web App</h1>
+        <div>
+            <input type="text" id="book" placeholder="Book">
+            <input type="number" id="chapter" placeholder="Chapter">
+            <input type="number" id="verse" placeholder="Verse">
+            <button id="fetch-verse">Fetch Verse</button>
+        </div>
+        <div id="verse-display"></div>
+        <div>
+            <input type="text" id="search-keyword" placeholder="Search by keyword">
+            <button id="search-verse">Search</button>
+        </div>
+        <div id="search-results"></div>
+        <div>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="register">Register</button>
+            <button id="login">Login</button>
+        </div>
+        <div id="auth-status"></div>
+        <div id="bookmarks"></div>
+        <div id="daily-verse"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
 
